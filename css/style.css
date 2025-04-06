@@ -1,0 +1,332 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+}
+
+.controls {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.controls label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.controls input[type="file"] {
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.controls input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.parameters {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+
+.controls button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.controls button:not(:disabled):hover {
+    background-color: #0056b3;
+}
+
+.canvas-container {
+    position: relative;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Add specific dimensions or make it responsive */
+    width: 80%;
+    max-width: 800px; /* Example max width */
+    min-height: 300px; /* Example min height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Hide parts of the canvas if image is too big */
+}
+
+#mainCanvas {
+    display: block; /* Remove extra space below canvas */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Scale image while preserving aspect ratio */
+}
+
+.status-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    text-align: center;
+    z-index: 10; /* Ensure it's above the canvas if needed */
+}
+
+/* Style for bounding boxes (will be dynamically added/drawn) */
+.bounding-box {
+    position: absolute;
+    border: 2px solid red;
+    box-sizing: border-box; /* Include border in width/height */
+    cursor: grab;
+}
+
+.bounding-box:active {
+    cursor: grabbing;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f2f5;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.controls {
+    background-color: #ffffff;
+    padding: 20px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap; /* Allow controls to wrap on smaller screens */
+    gap: 20px; /* Increased gap for better spacing */
+    align-items: center;
+    justify-content: center; /* Center controls */
+    max-width: 90%;
+    width: fit-content; /* Adjust width to content */
+}
+
+.controls label {
+    font-weight: 500; /* Slightly less bold */
+    margin-right: 5px;
+    color: #555;
+}
+
+.controls input[type="file"] {
+    border: 1px solid #d9d9d9;
+    padding: 8px 12px; /* Increased padding */
+    border-radius: 6px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+.controls input[type="file"]:hover {
+    border-color: #a0a0a0;
+}
+
+.controls input[type="number"] {
+    width: 70px; /* Slightly wider */
+    padding: 8px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 0.95em;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.controls input[type="number"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+.parameters {
+    display: flex;
+    gap: 15px; /* Maintain gap within parameters */
+    align-items: center;
+}
+
+
+.controls button {
+    padding: 10px 18px; /* Adjusted padding */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px; /* Consistent border radius */
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.controls button:disabled {
+    background-color: #adb5bd; /* Lighter gray for disabled */
+    color: #f8f9fa;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.controls button:not(:disabled):hover {
+    background-color: #0056b3;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.controls button:not(:disabled):active {
+    background-color: #004085;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.canvas-container {
+    position: relative;
+    border: 1px solid #d9d9d9; /* Subtle border */
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 90%; /* Use percentage for responsiveness */
+    max-width: 900px; /* Increased max width */
+    min-height: 350px; /* Slightly larger min height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto; /* Add scrollbars if canvas is larger */
+    border-radius: 8px; /* Match controls */
+}
+
+#mainCanvas {
+    display: block; /* Remove extra space below canvas */
+    max-width: 100%;
+    max-height: 100%;
+    /* object-fit: contain; */ /* Let JS handle scaling/canvas size */
+    cursor: default; /* Default cursor */
+}
+
+/* Status message styling */
+.status-overlay {
+    position: absolute;
+    bottom: 15px; /* Position at the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10; /* Ensure it's above the canvas content */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 0; /* Hidden by default */
+    visibility: hidden;
+}
+
+.status-message {
+    background-color: rgba(0, 0, 0, 0.75); /* Darker background */
+    color: white;
+    padding: 8px 15px; /* Adjust padding */
+    border-radius: 6px;
+    font-size: 0.95em; /* Slightly smaller font */
+    text-align: center;
+    white-space: nowrap; /* Prevent wrapping */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    display: none; /* Initially hidden, controlled by JS via parent */
+}
+
+/* Box selection/highlight style (will be drawn on canvas, not a separate element) */
+/* Add styles here if you were to implement boxes as DOM elements */
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column; /* Stack controls vertically */
+        align-items: stretch; /* Stretch items */
+        gap: 15px; /* Reduce gap */
+        width: 90%; /* Take more width */
+    }
+    .parameters {
+        justify-content: space-between; /* Space out parameters */
+        width: 100%;
+    }
+    .controls input[type="number"] {
+        width: 60px; /* Slightly smaller number inputs */
+    }
+    h1 {
+        font-size: 1.8em;
+    }
+    .canvas-container {
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+     h1 {
+        font-size: 1.5em;
+    }
+    .controls {
+         padding: 15px 20px;
+    }
+     .controls label {
+         margin-bottom: 5px; /* Add space below label */
+         display: block; /* Make label block */
+     }
+     .controls input[type="file"] {
+         width: 100%; /* Full width file input */
+         box-sizing: border-box;
+     }
+    .parameters {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .parameters label {
+         display: inline-block; /* Keep label inline with input */
+         margin-bottom: 0;
+         margin-right: 10px;
+         width: auto;
+    }
+     .controls input[type="number"] {
+        width: 80px; /* Slightly wider again */
+    }
+    .controls button {
+        width: 100%; /* Full width buttons */
+        padding: 12px;
+    }
+    .status-overlay {
+        bottom: 10px;
+        width: 90%;
+    }
+    .status-message {
+        font-size: 0.9em;
+        white-space: normal; /* Allow wrapping on small screens */
+    }
+}
+

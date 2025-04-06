@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprite Extractor Pro - Frontend</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/favicon.ico" sizes="any">
+</head>
+<body>
+    <h1>Sprite Extractor Pro</h1>
+
+    <div class="controls">
+        <label for="imageUpload">Upload Image:</label>
+        <input type="file" id="imageUpload" accept="image/*">
+
+        <div class="parameters">
+            <label for="gridSize">Grid Size (px):</label>
+            <input type="number" id="gridSize" value="64" min="16">
+
+            <label for="padding">Padding (px):</label>
+            <input type="number" id="padding" value="2" min="0">
+        </div>
+
+        <button id="detectButton" disabled>Detect Sprites</button>
+        <button id="downloadButton" disabled>Download Spritesheet</button>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="mainCanvas"></canvas>
+        <div id="status" class="status-message">Please upload an image.</div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "opencv-js": "https://cdn.jsdelivr.net/npm/opencv-js@1.2.1/opencv.min.js"
+        }
+    }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/opencv-js@1.2.1/opencv.min.js" async onload="onOpenCvReady();"></script>
+    <script type="module" src="js/main.js"></script>
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sprite Extractor Pro - Frontend</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/favicon.ico" sizes="any"> <!-- Ensure favicon exists -->
+</head>
+<body>
+    <h1>Sprite Extractor Pro</h1>
+
+    <div class="controls">
+        <label for="imageUpload">Upload Image:</label>
+        <input type="file" id="imageUpload" accept="image/*">
+
+        <div class="parameters">
+            <label for="gridSize">Grid Size (px):</label>
+            <input type="number" id="gridSize" value="64" min="8" step="1"> <!-- Added min/step -->
+
+            <label for="padding">Padding (px):</label>
+            <input type="number" id="padding" value="2" min="0" step="1"> <!-- Added min/step -->
+        </div>
+
+        <button id="detectButton" disabled>Detect Sprites</button>
+        <button id="downloadButton" disabled>Download Spritesheet</button>
+    </div>
+
+    <div class="canvas-container">
+        <canvas id="mainCanvas"></canvas>
+        <!-- Status message moved inside its own overlay div for better positioning/styling -->
+        <div class="status-overlay">
+             <div id="status" class="status-message">Please upload an image.</div>
+        </div>
+    </div>
+
+    <!-- Import map (optional but good practice for future libraries) -->
+    <!-- <script type="importmap">
+    {
+        "imports": {
+            "opencv-js": "https://cdn.jsdelivr.net/npm/opencv-js@?.?.?/opencv.min.js" // Pin version if needed
+        }
+    }
+    </script> -->
+
+    <!-- Load OpenCV.js -->
+    <!-- Make sure the path/version is correct. Using a specific version is recommended. -->
+    <script src="https://docs.opencv.org/4.9.0/opencv.js" async onload="onOpenCvReady();"></script>
+    <!-- Error handling for script load -->
+    <script>
+        function handleCvLoadError(event) {
+            console.error('Failed to load OpenCV.js script:', event);
+            const statusElement = document.getElementById('status');
+            if (statusElement) {
+                statusElement.textContent = 'FATAL ERROR: Could not load OpenCV.js. Please check network or CDN link.';
+                statusElement.style.color = '#d9534f';
+                statusElement.style.display = 'block';
+                // Show the parent overlay as well
+                 const overlay = statusElement.closest('.status-overlay');
+                 if (overlay) {
+                     overlay.style.visibility = 'visible';
+                     overlay.style.opacity = '1';
+                 }
+            }
+            // Disable all controls maybe?
+            document.getElementById('detectButton').disabled = true;
+            document.getElementById('downloadButton').disabled = true;
+            document.getElementById('imageUpload').disabled = true;
+        }
+        // Find the script tag for OpenCV and add error handler
+        const cvScript = document.querySelector('script[src*="opencv.js"]');
+        if (cvScript) {
+            cvScript.onerror = handleCvLoadError;
+        } else {
+            // Fallback if script tag isn't found immediately (might be added later dynamically?)
+            // This is less reliable
+            window.addEventListener('error', function(event) {
+                 if (event.target.src && event.target.src.includes('opencv.js')) {
+                    handleCvLoadError(event);
+                }
+            });
+        }
+    </script>
+
+    <!-- Main application script -->
+    <script type="module" src="js/main.js"></script>
+
+</body>
+</html>
+
